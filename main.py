@@ -3,8 +3,11 @@ import streamlit as st
 # 🎨 페이지 설정
 st.set_page_config(page_title="MBTI 모둠 & 자유 탐구 주제 추천", page_icon="🔬")
 
-st.title("🔬 경은쌤과 함께하는 MBTI 기반 모둠 & 자유 탐구 주제 추천")
-st.subheader("MBTI를 선택하면, 모둠과 어울리는 과학 주제를 추천해줄게요! 🧪✨")
+st.title("🔬 MBTI 기반 모둠 & 자유 탐구 주제 추천")
+st.subheader("MBTI와 이름을 입력하면, 어울리는 과학 모둠과 자유 탐구 주제를 추천해줄게요! 🧪✨")
+
+# 사용자 이름 입력
+name = st.text_input("이름을 입력하세요 ✍️")
 
 # MBTI → 모둠 매핑 (중학교 과학에 맞춘 주제)
 group_info = {
@@ -30,16 +33,20 @@ group_info = {
     "ISTP": ("감각형 실험파 모둠 ⚙️", ["ISTP", "ISFP", "ESTP", "ESFP"], "✈️ '양력 실험: 종이비행기와 비행 원리'"),
     "ISFP": ("감각형 실험파 모둠 ⚙️", ["ISTP", "ISFP", "ESTP", "ESFP"], "🎨 '빛과 색의 혼합 실험 (RGB/CMY)'"),
     "ESTP": ("감각형 실험파 모둠 ⚙️", ["ISTP", "ISFP", "ESTP", "ESFP"], "🎢 '속력과 가속도 실험: 미끄럼틀 실험 장치 만들기'"),
-    "ESFP": ("감각형 실험파 모둠 ⚙️", ["ISTP", "ISFP", "ESTP", "ESFP"], "🎥 '소리의 진동 실험: 스피커 위의 소금 영상 만들기'"),
+    "ESFP": ("감각형 실험파 모둠 ⚙️", ["ISTP", "ISFP", "ESTP", "ESFP"], "🎥 '소리의 진동 실험: 스피커 위의 소금 영상 만들기'")
 }
 
 # MBTI 선택
 selected_mbti = st.selectbox("당신의 MBTI를 선택하세요 🔽", ["선택하세요"] + list(group_info.keys()))
 
 # 출력
-if selected_mbti != "선택하세요":
+if name and selected_mbti != "선택하세요":
     group_name, members, topic = group_info[selected_mbti]
-    st.success(f"🎉 당신은 **{group_name}** 에 속해요!")
+    st.success(f"🎉 {name}님은 **{group_name}** 에 속해요!")
     st.markdown(f"👥 **같은 모둠원 유형**: {', '.join(members)}")
     st.markdown(f"🧪 **추천 자유 탐구 주제**: {topic}")
     st.balloons()
+elif not name:
+    st.info("👤 이름을 입력해주세요!")
+elif selected_mbti == "선택하세요":
+    st.info("🔽 MBTI를 선택해주세요!")
