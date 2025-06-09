@@ -3,7 +3,7 @@ import streamlit as st
 # 🎨 페이지 설정
 st.set_page_config(page_title="MBTI 모둠 & 탐구 주제 추천", page_icon="🤝")
 
-st.title("🔬 MBTI 기반 모둠 & 자유 탐구 주제 추천")
+st.title("🔬 경은쌤과 함께하는 MBTI 기반 모둠 & 자유 탐구 주제 추천")
 st.subheader("나에게 딱 맞는 모둠과 탐구 주제를 찾아보자! 🧠✨")
 
 # MBTI → 모둠 매핑 (16개 전부 포함)
