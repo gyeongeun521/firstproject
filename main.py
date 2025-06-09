@@ -7,83 +7,84 @@ st.subheader("이름과 MBTI 선택 후, 주제를 클릭하면 탐구 계획서
 
 name = st.text_input("이름을 입력하세요 ✍️")
 
+# 모둠별 정보 + 테이블 번호까지 추가
 group_info = {
-    "INTP": ("논리파 과학 덕후 모둠 🧠", ["INTP", "INTJ", "ENTP", "ENTJ"], [
+    "INTP": ("논리파 과학 덕후 모둠 🧠", ["INTP", "INTJ", "ENTP", "ENTJ"], 1, [
         "🔦 빛의 반사와 굴절 실험 설계하기",
         "🧠 자기장 속 전류의 방향 실험",
         "⚙️ 중력과 마찰력 비교 실험"
     ]),
-    "INTJ": ("논리파 과학 덕후 모둠 🧠", ["INTP", "INTJ", "ENTP", "ENTJ"], [
+    "INTJ": ("논리파 과학 덕후 모둠 🧠", ["INTP", "INTJ", "ENTP", "ENTJ"], 1, [
         "🔋 전기 회로의 직렬·병렬 연결 실험하기",
         "📏 빛의 경로 추적 실험",
         "📐 수평면에서의 등속 직선 운동 실험"
     ]),
-    "ENTP": ("논리파 과학 덕후 모둠 🧠", ["INTP", "INTJ", "ENTP", "ENTJ"], [
+    "ENTP": ("논리파 과학 덕후 모둠 🧠", ["INTP", "INTJ", "ENTP", "ENTJ"], 1, [
         "🧲 자석과 자기장 실험 키트 만들기",
         "🔍 렌즈의 초점 거리 측정 실험",
         "🪐 지구의 자전과 낮밤 변화 모형 만들기"
     ]),
-    "ENTJ": ("논리파 과학 덕후 모둠 🧠", ["INTP", "INTJ", "ENTP", "ENTJ"], [
+    "ENTJ": ("논리파 과학 덕후 모둠 🧠", ["INTP", "INTJ", "ENTP", "ENTJ"], 1, [
         "⚡ 정전기와 도체의 관계 실험하기",
         "🔌 전지 개수에 따른 전류 세기 측정",
         "📡 파동의 간섭 현상 실험"
     ]),
-    "INFJ": ("이상주의자 상상 모둠 🌌", ["INFJ", "INFP", "ENFP", "ENFJ"], [
+    "INFJ": ("이상주의자 상상 모둠 🌌", ["INFJ", "INFP", "ENFP", "ENFJ"], 2, [
         "🌍 기후 변화가 생물 다양성에 미치는 영향 조사",
         "🌳 나무의 나이테와 기후 변화 분석",
         "🌡️ 지구 온난화 시뮬레이션 실험"
     ]),
-    "INFP": ("이상주의자 상상 모둠 🌌", ["INFJ", "INFP", "ENFP", "ENFJ"], [
+    "INFP": ("이상주의자 상상 모둠 🌌", ["INFJ", "INFP", "ENFP", "ENFJ"], 2, [
         "🌱 식물의 광합성 속도에 영향을 주는 요인 실험",
         "🌸 다른 식물의 발아 조건 비교 실험",
         "🧬 유전 형질의 간단한 모형 만들기"
     ]),
-    "ENFP": ("이상주의자 상상 모둠 🌌", ["INFJ", "INFP", "ENFP", "ENFJ"], [
+    "ENFP": ("이상주의자 상상 모둠 🌌", ["INFJ", "INFP", "ENFP", "ENFJ"], 2, [
         "☀️ 태양의 고도 변화와 그림자의 길이 관계 실험",
         "🌏 계절 변화와 지구 공전의 관계 조사",
         "🌈 스펙트럼 실험을 통한 빛의 구성 색 이해"
     ]),
-    "ENFJ": ("이상주의자 상상 모둠 🌌", ["INFJ", "INFP", "ENFP", "ENFJ"], [
+    "ENFJ": ("이상주의자 상상 모둠 🌌", ["INFJ", "INFP", "ENFP", "ENFJ"], 2, [
         "🌊 해수면 상승이 생태계에 미치는 영향 영상 제작",
         "🪸 산호초 감소와 해양 생태계 변화",
         "💨 대기오염 측정과 해결 방안 조사"
     ]),
-    "ISTJ": ("현실 기반 꼼꼼이 모둠 📐", ["ISTJ", "ISFJ", "ESTJ", "ESFJ"], [
+    "ISTJ": ("현실 기반 꼼꼼이 모둠 📐", ["ISTJ", "ISFJ", "ESTJ", "ESFJ"], 3, [
         "💧 물의 상태 변화 실험: 응결과 증발 관찰",
         "🧊 얼음이 녹는 시간 비교 실험",
         "📦 다양한 포장재의 단열 효과 비교"
     ]),
-    "ISFJ": ("현실 기반 꼼꼼이 모둠 📐", ["ISTJ", "ISFJ", "ESTJ", "ESFJ"], [
+    "ISFJ": ("현실 기반 꼼꼼이 모둠 📐", ["ISTJ", "ISFJ", "ESTJ", "ESFJ"], 3, [
         "🧫 세균 번식 조건 실험하기 (깨끗한 손의 중요성)",
         "🔍 현미경으로 관찰한 생물 세포 비교",
         "🥼 손 씻기의 효과 실험"
     ]),
-    "ESTJ": ("현실 기반 꼼꼼이 모둠 📐", ["ISTJ", "ISFJ", "ESTJ", "ESFJ"], [
+    "ESTJ": ("현실 기반 꼼꼼이 모둠 📐", ["ISTJ", "ISFJ", "ESTJ", "ESFJ"], 3, [
         "🍽️ 화학 변화와 물리 변화 구분 실험",
         "🧪 산과 염기의 성질 비교 실험",
         "📊 다양한 액체의 밀도 비교"
     ]),
-    "ESFJ": ("현실 기반 꼼꼼이 모둠 📐", ["ISTJ", "ISFJ", "ESTJ", "ESFJ"], [
+    "ESFJ": ("현실 기반 꼼꼼이 모둠 📐", ["ISTJ", "ISFJ", "ESTJ", "ESFJ"], 3, [
         "🥶 냉장고 속 기체의 응축 실험",
         "🧂 소금물의 끓는점 변화 실험",
         "🔥 연소의 3요소 실험"
     ]),
-    "ISTP": ("감각형 실험파 모둠 ⚙️", ["ISTP", "ISFP", "ESTP", "ESFP"], [
+    "ISTP": ("감각형 실험파 모둠 ⚙️", ["ISTP", "ISFP", "ESTP", "ESFP"], 4, [
         "✈️ 양력 실험: 종이비행기와 비행 원리",
         "🏀 낙하 속도 실험: 물체의 질량과 속도 관계",
         "🧱 간단한 지렛대 실험"
     ]),
-    "ISFP": ("감각형 실험파 모둠 ⚙️", ["ISTP", "ISFP", "ESTP", "ESFP"], [
+    "ISFP": ("감각형 실험파 모둠 ⚙️", ["ISTP", "ISFP", "ESTP", "ESFP"], 4, [
         "🎨 빛과 색의 혼합 실험 (RGB/CMY)",
         "🔮 유리 프리즘을 이용한 색 분해 실험",
         "🧼 비누방울의 색과 간섭 현상 실험"
     ]),
-    "ESTP": ("감각형 실험파 모둠 ⚙️", ["ISTP", "ISFP", "ESTP", "ESFP"], [
+    "ESTP": ("감각형 실험파 모둠 ⚙️", ["ISTP", "ISFP", "ESTP", "ESFP"], 4, [
         "🎢 속력과 가속도 실험: 미끄럼틀 실험 장치 만들기",
         "🛹 마찰력의 크기 비교 실험",
         "⚖️ 도르래의 원리 실험"
     ]),
-    "ESFP": ("감각형 실험파 모둠 ⚙️", ["ISTP", "ISFP", "ESTP", "ESFP"], [
+    "ESFP": ("감각형 실험파 모둠 ⚙️", ["ISTP", "ISFP", "ESTP", "ESFP"], 4, [
         "🎥 소리의 진동 실험: 스피커 위의 소금 영상 만들기",
         "🎶 소리의 세기와 진동수 비교 실험",
         "📢 공기의 진동 실험"
@@ -143,27 +144,26 @@ plan_templates = {
 - 경사면에서 물체를 굴리며 마찰력과 중력의 작용을 비교한다.
 
 5. 예상 결과  
-- 마찰력의 크기는 표면에 따라 다르며 중력은 일정하다.
+- 마찰력의 크기는 접촉면에 따라 다르다.
 """,
-    # ... (다른 주제도 필요하면 여기에 추가하세요)
+    # (나머지 주제도 이렇게 채워 넣으면 됨)
 }
 
-selected_mbti = st.selectbox("당신의 MBTI를 선택하세요 🔽", ["선택하세요"] + list(group_info.keys()))
-
-if name and selected_mbti != "선택하세요":
-    group_name, members, topics = group_info[selected_mbti]
-    st.success(f"🧬 {name}님은 **{group_name}** 에 속해요!")
-    st.markdown(f"👥 **같은 모둠원 유형**: {', '.join(members)}")
-    st.markdown("🔎 **추천 자유 탐구 주제 (주제를 클릭해 보세요!)**:")
-
-    selected_topic = st.radio("탐구 주제를 선택하세요:", topics)
+# 이름, MBTI 입력받기 및 모둠/테이블 안내
+if name:
+    mbti = st.selectbox(f"{name}님의 MBTI를 선택하세요", options=list(group_info.keys()))
     
-    if selected_topic:
-        st.markdown("### 📝 탐구 계획서 초안")
-        plan_text = plan_templates.get(selected_topic, "해당 주제의 탐구 계획서가 준비 중입니다.")
-        st.markdown(plan_text)
-
-elif not name:
-    st.info("👤 이름을 입력해주세요!")
-elif selected_mbti == "선택하세요":
-    st.info("🔽 MBTI를 선택해주세요!")
+    if mbti:
+        group_name, mbti_group, table_number, topics = group_info[mbti]
+        
+        st.markdown(f"### 안녕하세요, **{name}**님! 당신은 **{group_name}**에 속하며, **{table_number}번 테이블**에 앉으시면 됩니다.")
+        st.markdown("#### 아래 주제 중 한 가지를 선택해 탐구 계획서 초안을 확인해보세요!")
+        
+        for topic in topics:
+            if st.button(topic):
+                if topic in plan_templates:
+                    st.markdown(plan_templates[topic])
+                else:
+                    st.markdown(f"### {topic}\n\n탐구 계획서 초안이 준비 중입니다. 조금만 기다려 주세요!")
+else:
+    st.write("이름을 입력해 주세요.")
