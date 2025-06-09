@@ -7,9 +7,6 @@ st.set_page_config(page_title="MBTI 영화 추천기 🎥", page_icon="🎬")
 st.title("당신의 MBTI로 추천받는 🎬 과학&수학 명작 영화!")
 st.subheader("성격대로 골라보는 명작 영화 🍿")
 
-# ✍️ 사용자 입력 받기
-mbti = st.text_input("당신의 MBTI를 입력해주세요 (예: INTP, ESFJ 등)", max_chars=4).upper()
-
 # 🎥 MBTI별 추천 영화 DB
 mbti_movies = {
     "INTP": [
@@ -32,17 +29,8 @@ mbti_movies = {
         "🔍 *Hidden Figures* (2016) – 책임감 있는 계산과 성과 🚀",
         "📘 *October Sky* (1999) – 꿈을 향한 확고한 열정 🚀"
     ],
-    # ...원하면 더 추가 가능!
+    # 필요시 더 추가 가능!
 }
 
-# 💡 유효한 MBTI인지 확인
-valid_mbtis = mbti_movies.keys()
-
-if mbti:
-    if mbti in valid_mbtis:
-        st.success(f"🎉 {mbti} 유형을 위한 추천 명작 3편! 🍿")
-        for movie in mbti_movies[mbti]:
-            st.markdown(f"- {movie}")
-        st.balloons()  # 🎈 풍선 효과!
-    else:
-        st.error("😢 유효한 MBTI를 입력해주세요 (예: INTP, ENFP 등)")
+# 🧠 MBTI 선택 드롭다운
+selected_mbti = st.selectbox("당신의 MBTI는 무엇인가요? 🔽", options=["선택하세요"] + list(mbti_movies.keys()))
